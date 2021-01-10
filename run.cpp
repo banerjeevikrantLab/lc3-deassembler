@@ -20,9 +20,14 @@ int findOPCode(int line){
     return codeBetween(line, 12, 15);
 }
 
+unsigned int onesComplement(unsigned int n) { 
+   int number_of_bits = floor(log2(n))+1; 
+   return ((1 << number_of_bits) - 1) ^ n; 
+} 
+
 int twosComplement(int offs){
-    offs = ~offs;
-    return offs + 1;
+    offs = onesComplement(offs);
+    return (offs + 1)*-1;
 }
 
 string deasem_ANDnADD(int line, int opcode){
@@ -63,16 +68,23 @@ string deasem_ANDnADD(int line, int opcode){
 
 string deasem_BR(int line){
     string cmd;
+    string n_str = "";
+    string z_str = "";
+    string p_str = "";
+
     int n = codeBetween(line, 11, 11);
     int z = codeBetween(line, 10, 10);
     int p = codeBetween(line, 9, 9);
+    if(n == 1) n_str = "n";
+    if(z == 1) z_str = "z";
+    if(p == 1) p_str = "p";
     int offs = codeBetween(line, 0, 8);
 
     if(offs > 255){
         offs = twosComplement(offs);
     }
 
-    return cmd + "BR" + to_string(n) + to_string(z) + to_string(p) + " " + to_string(offs);
+    return cmd + "BR" + n_str + z_str + p_str + " " + to_string(offs);
 }
 
 string deasem_JMP(int line){
