@@ -136,6 +136,38 @@ string deasem_LOAD(int line){
     }
 }
 
+string deasem_STORE(int line){
+    string cmd;
+    int opCode = findOPCode(line);
+    int offs_9 = codeBetween(line, 0, 8);
+    int sr = codeBetween(line, 9, 11);
+
+    if(offs_9 > 255){
+        offs_9 = twosComplement(offs_9);
+    }
+
+    // 2 = LD, 6 = LDR, 10 = LDI, 14 = LEA
+
+    if(opCode == 3){
+
+        return cmd + "ST R" + to_string(sr) + ", #" + to_string(offs_9);
+
+    }else if(opCode == 7){
+        int offs_6 = codeBetween(line, 0, 5);
+        int baseR = codeBetween(line, 6, 8);
+
+        if(offs_6 > 31){
+            offs_6 = twosComplement(offs_6);
+        }
+        return cmd + "STR R" + to_string(sr) + ", R" + to_string(baseR) + ", #" + to_string(offs_6);
+
+    }else {
+
+        return cmd + "STI R" + to_string(sr) + ", #" + to_string(offs_9);
+
+    }
+}
+
 string deasem_NOT(int line){
     string cmd; 
     int dr = codeBetween(line, 9, 11);
