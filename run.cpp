@@ -185,49 +185,49 @@ string writeAssemblyCode(int line){
 
     switch (opCode){
     case 0:
-        
+        return deasem_BR(line);
         break;
     case 1:
         return deasem_ANDnADD(line, opCode);
         break;
     case 2:
-        
+        return deasem_LOAD(line);
         break;
     case 3:
-
+        return deasem_STORE(line);
         break;
     case 4:
-
+        return deasem_JSR(line);
         break;
     case 5:
-
-        break;
-    case 6:
         return deasem_ANDnADD(line, opCode);
         break;
+    case 6:
+        return deasem_LOAD(line);
+        break;
     case 7:
-
+        return deasem_STORE(line);
         break;
     case 8:
-
+        return deasem_RTI();
         break;
     case 9:
-
+        return deasem_NOT(line);
         break;
     case 10:
-
+        return deasem_LOAD(line);
         break;
     case 11:
-
+        return deasem_STORE(line);
         break;
     case 12:
-
+        return deasem_JMP(line);
         break;
     case 13:
 
         break;
     case 14:
-
+        return deasem_LOAD(line);
         break;
     case 15:
 
