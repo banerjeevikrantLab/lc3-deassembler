@@ -180,6 +180,27 @@ string deasem_RTI(){
     return "RTI";
 }
 
+string deasem_TRAP(int line){
+    string cmd;
+    int trapvect = codeBetween(line, 0, 7);
+
+    if(trapvect == 20) {
+        return "GETC";
+    }else if(trapvect == 21){
+        return "OUT";
+    }else if(trapvect == 22){
+        return "PUTS";
+    }else if(trapvect == 23){
+        return "IN";
+    }else if(trapvect == 24){
+        return "PUTSP";
+    }else if(trapvect == 25){
+        return "HALT";
+    }else{
+        return "TRAP x" + to_string(trapvect);
+    }
+}
+
 string writeAssemblyCode(int line){
     int opCode = findOPCode(line);
 
@@ -230,7 +251,7 @@ string writeAssemblyCode(int line){
         return deasem_LOAD(line);
         break;
     case 15:
-
+        return deasem_TRAP(line);
         break;
     default:
         break;
