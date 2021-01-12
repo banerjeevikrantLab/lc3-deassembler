@@ -273,17 +273,11 @@ string writeAssemblyCode(int line){
 }
 
 int main() {
-    string nextLineString;
 
     ifstream MyReadFile("program.txt");
 
-    while (getline(MyReadFile, nextLineString)) {
-        stringstream n; 
-  
-        int nextLine = 0; 
-        n << hex << nextLineString; 
-        n >> nextLine;
-  
+    int nextLine;
+    while (MyReadFile >> hex >> nextLine) {
         cout << writeAssemblyCode(nextLine) << "\n";
     }
 
