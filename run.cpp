@@ -278,7 +278,7 @@ int main() {
 
     int nextLine;
     while (MyReadFile >> hex >> nextLine) {
-        cout << writeAssemblyCode(nextLine) << "\n";
+        cout << writeAssemblyCode(nextLine) << "<br />";
     }
 
 
