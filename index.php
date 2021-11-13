@@ -8,34 +8,22 @@
 
     <form name="savefile" method="post" action="">
         <textarea rows="10" cols="100" name="textdata"></textarea><br/>
-        <input type="submit" name="submitsave" value="Save Text to Server">
+        <input type="submit" name="submitsave" value="Run Deassembler">
 	</form>
+    
 
     <br/>
     <?php
-    if (isset($_POST)){
-        if ($_POST['submitsave'] == "Save Text to Server") {
-        
-            $file = fopen("program.txt","a+");
-            $text = $_POST["textdata"];
-            file_put_contents("program.txt", $text);
-            fclose($file);
+    if (isset($_POST['submitsave'])){
+        $file = fopen("program.txt","a+");
+        $text = $_POST["textdata"];
+        file_put_contents("program.txt", $text);
+        fclose($file);
 
-            system('./run', $retval);
-
-            echo '
-				</pre>
-				<hr />Return value: ' . $retval . '<br>';
-        }
+        system('./run', $retval);
     }
     
     ?>
-
-
-<script>
-
-
-</script>
 
 </body>
 </html>
